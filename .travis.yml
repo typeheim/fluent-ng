@@ -1,6 +1,10 @@
 sudo: false
 install: true
 language: node_js
+services:
+  - xvfb
+before_install:
+  - export CHROME_BIN=/usr/bin/google-chrome
 node_js:
   - stable
 addons:
