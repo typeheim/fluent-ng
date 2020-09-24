@@ -8,7 +8,7 @@ import { AwaitPipe } from './await.pipe';
 @NgModule({
   declarations: [StreamPipe, AwaitPipe],
   imports: [],
-  exports: [],
+  exports: [StreamPipe, AwaitPipe],
 })
 export class FluentNgModule {
   static forRoot(): ModuleWithProviders<FluentNgModule> {
