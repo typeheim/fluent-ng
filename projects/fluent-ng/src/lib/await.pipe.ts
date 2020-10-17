@@ -20,7 +20,7 @@ export class AwaitPipe implements PipeTransform, OnDestroy {
 
   constructor(private changeDetector: ChangeDetectorRef) {}
 
-  transform(dataStream: Promise<any> | null | undefined, config?: PromiseConfig): any {
+  transform<T>(dataStream: Promise<T> | null | undefined, config?: PromiseConfig): T | null {
     if (!this.source) {
       this.latestValue = this.latestValue ?? config?.default ?? null;
       if (dataStream) {

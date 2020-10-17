@@ -27,9 +27,14 @@ export class StreamPipe implements PipeTransform, OnDestroy {
 
   constructor(private changeDetector: ChangeDetectorRef) {}
 
-  transform(dataStream: Observable<any> | null | undefined, config?: StreamConfig): any {
+  transform<T>(dataStream: Observable<T> | null | undefined, config?: StreamConfig): T | null {
     if (!this.source) {
-      this.latestValue = this.latestValue ?? config?.default ?? null;
+      if (dataStream['value'] !== undefined) {
+        this.latestValue = dataStream['value']
+      } else {
+        this.latestValue = this.latestValue ?? config?.default ?? null;
+      }
+
       if (dataStream) {
         this.subscribe(dataStream);
       }
