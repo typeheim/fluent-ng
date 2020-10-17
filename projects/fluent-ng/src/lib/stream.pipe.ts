@@ -29,7 +29,7 @@ export class StreamPipe implements PipeTransform, OnDestroy {
 
   transform<T>(dataStream: Observable<T> | null | undefined, config?: StreamConfig): T | null {
     if (!this.source) {
-      if (dataStream['value'] !== undefined) {
+      if (ɵisObservable(dataStream) && dataStream['value'] !== undefined) {
         this.latestValue = dataStream['value']
       } else {
         this.latestValue = this.latestValue ?? config?.default ?? null;
