@@ -1,11 +1,11 @@
 {
   "name": "@typeheim/fluent-ng",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "peerDependencies": {
-    "@angular/common": "^10.1.2",
-    "@angular/core": "^10.1.2"
+    "@angular/common": "^12.1.2",
+    "@angular/core": "^12.1.2"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.2.0"
   }
 }

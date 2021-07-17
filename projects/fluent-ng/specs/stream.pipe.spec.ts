@@ -19,7 +19,7 @@ describe('StreamPipe', () => {
     expect(pipe.transform(subject, { default: 'default' })).toEqual('default');
   });
 
-  it('should return null while awaits for data and then return subject result', async (done) => {
+  it('should return null while awaits for data and then return subject result',  () => {
     const pipe = createPipe();
 
     const subject = new Subject();
@@ -29,11 +29,9 @@ describe('StreamPipe', () => {
 
     subject.next('it works!');
     expect(pipe.transform(subject)).toEqual('it works!');
-
-    done();
   });
 
-  it('should return default value while awaits for data and then return subject result', async (done) => {
+  it('should return default value while awaits for data and then return subject result',  () => {
     const pipe = createPipe();
 
     const subject = new Subject();
@@ -43,11 +41,9 @@ describe('StreamPipe', () => {
 
     subject.next('it works!');
     expect(pipe.transform(subject)).toEqual('it works!');
-
-    done();
   });
 
-  it('should return the same result after each next value received from observable', async (done) => {
+  it('should return the same result after each next value received from observable',  () => {
     const pipe = createPipe();
 
     const subject = new Subject();
@@ -63,8 +59,6 @@ describe('StreamPipe', () => {
     expect(pipe.transform(subject)).toEqual('it works as well!');
     expect(pipe.transform(subject)).toEqual('it works as well!');
     expect(pipe.transform(subject)).toEqual('it works as well!');
-
-    done();
   });
 
   it('should return null when given null', () => {

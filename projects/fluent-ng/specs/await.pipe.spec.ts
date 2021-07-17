@@ -19,7 +19,7 @@ describe('AwaitPipe', () => {
     expect(pipe.transform(promise, { default: 'default' })).toEqual('default');
   });
 
-  it('should return null while awaits for data and then return promise result', async (done) => {
+  it('should return null while awaits for data and then return promise result', async () => {
     const pipe = createPipe();
 
     const promise = new Promise((resolve) => resolve('it works!'));
@@ -30,11 +30,9 @@ describe('AwaitPipe', () => {
     // need to ensure promise is resolved before testing pipe result
     await promise;
     expect(pipe.transform(promise)).toEqual('it works!');
-
-    done();
   });
 
-  it('should return default value while awaits for data and then return promise result', async (done) => {
+  it('should return default value while awaits for data and then return promise result', async () => {
     const pipe = createPipe();
 
     const promise = new Promise((resolve) => resolve('it works!'));
@@ -45,11 +43,9 @@ describe('AwaitPipe', () => {
     // need to ensure promise is resolved before testing pipe result
     await promise;
     expect(pipe.transform(promise)).toEqual('it works!');
-
-    done();
   });
 
-  it('should return the same result once promise resolved', async (done) => {
+  it('should return the same result once promise resolved', async () => {
     const pipe = createPipe();
 
     const promise = new Promise((resolve) => resolve('it works!'));
@@ -60,8 +56,6 @@ describe('AwaitPipe', () => {
     expect(pipe.transform(promise)).toEqual('it works!');
     expect(pipe.transform(promise)).toEqual('it works!');
     expect(pipe.transform(promise)).toEqual('it works!');
-
-    done();
   });
 
   it('should return null when given null', () => {
