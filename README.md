@@ -17,6 +17,22 @@ yarn add @typeheim/fluent-ng
 npm -i @typeheim/fluent-ng
 ```
 
+## SubscribePipe
+
+SubscribePipe is an alternative to Angular core AsyncPipe. SubscribePipe is tuned to work only with observables and support setting default values instead of `null`.
+Unlike AsyncPipe, SubscribePipe call `markDirty`, introduced with Ivy, instead of `markForCheck` giving better performance, resource utilization and smooth UI updates.
+```typescript
+@Component({
+  template: `
+    {{observableSource | subscribe}}
+    {{observableSource | subscribe: 'default text' }}
+  `
+})
+class StreamSampleComponent {
+  observableSource = new Subject()
+}
+```
+
 ## StreamPipe
 
 StreamPipe is an alternative to Angular core AsyncPipe. StreamPipe is tuned to work only with observables and support setting default values instead of `null`.

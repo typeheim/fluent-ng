@@ -1,15 +1,5 @@
-import {
-  Pipe,
-  PipeTransform,
-  ChangeDetectorRef,
-  EventEmitter,
-  OnDestroy,
-  ɵisObservable,
-} from '@angular/core';
-import {
-  Observable,
-  SubscriptionLike,
-} from 'rxjs';
+import {ChangeDetectorRef, EventEmitter, OnDestroy, Pipe, PipeTransform, ɵisObservable,} from '@angular/core';
+import {Observable, Subscribable, SubscriptionLike,} from 'rxjs';
 
 export interface StreamConfig {
   default: any;
@@ -23,11 +13,15 @@ export class StreamPipe implements PipeTransform, OnDestroy {
   private latestValue: any = null;
 
   private subscription: SubscriptionLike;
-  private source: Observable<any> | EventEmitter<any> | null = null;
+  private source: Subscribable<any> | EventEmitter<any> | null = null
 
-  constructor(private changeDetector: ChangeDetectorRef) {}
+  constructor(private changeDetector: ChangeDetectorRef) {
+  }
 
-  transform<T>(dataStream: Observable<T> | null | undefined, config?: StreamConfig): T | null {
+  transform<T>(dataStream: Observable<T> | Subscribable<T>, config?: StreamConfig): T | null;
+  transform<T>(dataStream: null | undefined, preload?: any): null;
+  transform<T>(dataStream: Observable<T> | Subscribable<T> | null | undefined, config?: StreamConfig): T | null;
+  transform<T>(dataStream: Observable<T> | Subscribable<T> | null | undefined, config?: StreamConfig): T | null {
     if (!this.source) {
       if (ɵisObservable(dataStream) && dataStream['value'] !== undefined) {
         this.latestValue = dataStream['value']
@@ -48,7 +42,7 @@ export class StreamPipe implements PipeTransform, OnDestroy {
     return this.latestValue;
   }
 
-  private subscribe(dataStream: Observable<any> | EventEmitter<any>): void {
+  private subscribe<T>(dataStream: Observable<T> | Subscribable<T> | null | undefined): void {
     this.source = dataStream;
     if (!ɵisObservable(dataStream)) {
       throw  Error(`InvalidPipeArgument: '${dataStream}' for pipe stream`);
